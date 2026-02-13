@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Embed README</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
+  <style>
+    body { margin: 0; padding: 20px; }
+    .markdown-body { box-sizing: border-box; max-width: 900px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <article id="content" class="markdown-body">Loading README...</article>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+  <script>
+    // Default raw README URL for this repository
+    const defaultSrc = 'https://raw.githubusercontent.com/Jond0666/Chaturbate-tokens-generator-/main/README.md';
+
+    // Allow overriding via ?src=<encoded-url>
+    const params = new URLSearchParams(location.search);
+    const src = params.get('src') || defaultSrc;
+
+    async function load() {
+      try {
+        const res = await fetch(src);
+        if (!res.ok) throw new Error('Fetch error: ' + res.status);
+        const md = await res.text();
+        document.getElementById('content').innerHTML = marked.parse(md);
+      } catch (err) {
+        document.getElementById('content').textContent = 'Failed to load README: ' + err.message;
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
